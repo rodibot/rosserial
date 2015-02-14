@@ -46,11 +46,11 @@ if __name__=="__main__":
     rospy.init_node("serial_node")
     rospy.loginfo("ROS Serial Python Node")
 
-    port_name = rospy.get_param('~port','/dev/ttyUSB0')
+    port_name = rospy.get_param('~port','tcp')
     baud = int(rospy.get_param('~baud','57600'))
 
     # TODO: should these really be global?
-    tcp_portnum = int(rospy.get_param('/rosserial_embeddedlinux/tcp_port', '11411'))
+    tcp_portnum = int(rospy.get_param('/rosserial_embeddedlinux/tcp_port', '1234'))
     fork_server = rospy.get_param('/rosserial_embeddedlinux/fork_server', False)
 
     # TODO: do we really want command line params in addition to parameter server params?

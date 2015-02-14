@@ -226,19 +226,20 @@ class RosSerialServer:
         self.fork_server = fork_server
 
     def listen(self):
-        self.serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.serversocket = socket.socket()
         #bind the socket to a public host, and a well-known port
-        self.serversocket.bind(("", self.tcp_portnum)) #become a server socket
-        self.serversocket.listen(1)
+        self.serversocket.connect(('192.168.4.1', self.tcp_portnum))
+        #self.serversocket.bind(("", self.tcp_portnum)) #become a server socket
+        #self.serversocket.listen(1)
 
         while True:
             #accept connections
-            print "waiting for socket connection"
-            (clientsocket, address) = self.serversocket.accept()
+            #print "waiting for socket connection"
+            #(clientsocket, address) = self.serversocket.accept()
 
             #now do something with the clientsocket
-            rospy.loginfo("Established a socket connection from %s on port %s" % (address))
-            self.socket = clientsocket
+            #rospy.loginfo("Established a socket connection from %s on port %s" % (address))
+            self.socket = self.serversocket
             self.isConnected = True
 
             if (self.fork_server == True):	# if configured to launch server in a separate process
